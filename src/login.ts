@@ -49,7 +49,7 @@ registeBtn.addEventListener("click", (e): void => {
       alert("Invalid email or password should be minimum 8 character!!");
     }
   } else {
-    alert("this id alredy register!!!");
+    alert("user already exists!!!");
     rinputOne.value = '';
     rinputTwo.value = '';
   }
