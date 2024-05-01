@@ -10,7 +10,9 @@ const userEmail: string = sessionStorage.getItem("forgotPass") || "[]";
 let userIndex: number;
 
 //user Email
+if(userEmail != '[]') {
 loginUser.value = userEmail;
+}
 
 document.querySelector("#verify")?.addEventListener("click", (e):void => {
   e.preventDefault();
@@ -22,7 +24,7 @@ document.querySelector("#verify")?.addEventListener("click", (e):void => {
     changePasswordForm.classList.add("block");
     changeUser.value = loginUser.value;
   } else {
-    alert("email is not");
+    alert("email is not found!!!");
   }
 });
 
@@ -30,12 +32,12 @@ document.querySelector("#verify")?.addEventListener("click", (e):void => {
 //change user password
 changePassBtn.addEventListener("click",(e):void =>{
     e.preventDefault();
-    if(changePass.value != undefined) {
+    if(changePass.value != undefined && changePass.value.length > 7 ) {
        userData[userIndex].userPass = changePass.value;
        localStorage.setItem("user",JSON.stringify(userData));
        sessionStorage.removeItem("forgotPass");
        location.href = "../index.html";
     }else {
-        alert("please enter your new password!!!")
+        alert("please enter your new password or passwrod lenth must be minimum 8!!!")
     }
 })

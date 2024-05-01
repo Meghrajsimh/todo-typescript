@@ -21,6 +21,7 @@ const closeCompleteAre = document.querySelector(".closeBtn");
 //log out btn
 logOut.addEventListener("click", () => {
     sessionStorage.removeItem("loginUser");
+    alert("you are logout!!!");
     location.reload();
 });
 //close the completeTable area 

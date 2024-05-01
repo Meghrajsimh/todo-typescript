@@ -32,6 +32,7 @@ interface userTodoData {
 //log out btn
 logOut.addEventListener("click", ():void => {
   sessionStorage.removeItem("loginUser");
+  alert("you are logout!!!");
   location.reload();
 });
 

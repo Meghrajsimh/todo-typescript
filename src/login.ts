@@ -9,13 +9,11 @@ const rinputOne = document.getElementById("rinputOne") as HTMLInputElement;
 const rinputTwo = document.getElementById("rinputTwo") as HTMLInputElement;
 const registerLink = document.querySelector(".registe") as HTMLDivElement;
 
-
 //open registe page
-registerLink.addEventListener('click',():void =>{
-   registerForm.classList.add('block');
-   loginForm.classList.add("none");
-})
-
+registerLink.addEventListener("click", (): void => {
+  registerForm.classList.add("block");
+  loginForm.classList.add("none");
+});
 
 interface User {
   userName: string;
@@ -29,25 +27,33 @@ registerTitle.addEventListener("click", (): void => {
 });
 
 // create user
-registeBtn.addEventListener("click", (): void => {
+registeBtn.addEventListener("click", (e): void => {
+  e.preventDefault();
   const userEmail: string = rinputOne.value;
   const userPass: string = rinputTwo.value;
-  const userData:User[] = JSON.parse(localStorage.getItem("user") || "[]")
-  if (userEmail.includes("@") && userPass.length > 7) {
-    const obj: User = {
-      userName: userEmail,
-      userPass: userPass,
-    };
-    userData.push(obj);
-    const json: string = JSON.stringify(userData);
-    localStorage.setItem("user", json);
-    alert("User created");
-    location.reload();
+  const userData: User[] = JSON.parse(localStorage.getItem("user") || "[]");
+  let userFind: number = userData.findIndex((ele) => ele.userName == userEmail);
+  
+  if (userFind == -1) {
+    if (userEmail.includes("@") && userPass.length > 7) {
+      const obj: User = {
+        userName: userEmail,
+        userPass: userPass,
+      };
+      userData.push(obj);
+      const json: string = JSON.stringify(userData);
+      localStorage.setItem("user", json);
+      alert("User created");
+      location.reload();
+    } else {
+      alert("Invalid email or password should be minimum 8 character!!");
+    }
   } else {
-    alert("Invalid email or password");
+    alert("this id alredy register!!!");
+    rinputOne.value = '';
+    rinputTwo.value = '';
   }
 });
-
 
 // check user is vaild or not and login
 loginBtn.addEventListener("click", (e): void => {
@@ -58,11 +64,16 @@ loginBtn.addEventListener("click", (e): void => {
   console.log(regUserData);
   let findUser: User[] = regUserData.filter(
     (ele) =>
-      (userEmail.toLowerCase() === ele.userName.toLowerCase() || ele.userName.split('@')[0].toLowerCase() == userEmail.toLowerCase()) && userPass === ele.userPass
+      (userEmail.toLowerCase() === ele.userName.toLowerCase() ||
+        ele.userName.split("@")[0].toLowerCase() == userEmail.toLowerCase()) &&
+      userPass === ele.userPass
   );
 
   if (findUser.length > 0 && userPass.length > 7) {
-    sessionStorage.setItem("loginUser", JSON.stringify(userEmail.split("@")[0]));
+    sessionStorage.setItem(
+      "loginUser",
+      JSON.stringify(userEmail.split("@")[0])
+    );
     alert("Login successful");
     location.href = "../html/todo.html";
   } else {
@@ -70,7 +81,6 @@ loginBtn.addEventListener("click", (e): void => {
   }
 });
 
-document.querySelector('a')?.addEventListener("click",(e):void =>{
-  sessionStorage.setItem("forgotPass",inputOne.value);
-})
-
+document.querySelector("a")?.addEventListener("click", (e): void => {
+  sessionStorage.setItem("forgotPass", inputOne.value);
+});

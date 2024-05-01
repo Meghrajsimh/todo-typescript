@@ -10,8 +10,8 @@ const rinputOne = document.getElementById("rinputOne");
 const rinputTwo = document.getElementById("rinputTwo");
 const registerLink = document.querySelector(".registe");
 //open registe page
-registerLink.addEventListener('click', () => {
-    registerForm.classList.add('block');
+registerLink.addEventListener("click", () => {
+    registerForm.classList.add("block");
     loginForm.classList.add("none");
 });
 // open login form
@@ -20,23 +20,32 @@ registerTitle.addEventListener("click", () => {
     loginForm.classList.remove("none");
 });
 // create user
-registeBtn.addEventListener("click", () => {
+registeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     const userEmail = rinputOne.value;
     const userPass = rinputTwo.value;
     const userData = JSON.parse(localStorage.getItem("user") || "[]");
-    if (userEmail.includes("@") && userPass.length > 7) {
-        const obj = {
-            userName: userEmail,
-            userPass: userPass,
-        };
-        userData.push(obj);
-        const json = JSON.stringify(userData);
-        localStorage.setItem("user", json);
-        alert("User created");
-        location.reload();
+    let userFind = userData.findIndex((ele) => ele.userName == userEmail);
+    if (userFind == -1) {
+        if (userEmail.includes("@") && userPass.length > 7) {
+            const obj = {
+                userName: userEmail,
+                userPass: userPass,
+            };
+            userData.push(obj);
+            const json = JSON.stringify(userData);
+            localStorage.setItem("user", json);
+            alert("User created");
+            location.reload();
+        }
+        else {
+            alert("Invalid email or password should be minimum 8 character!!");
+        }
     }
     else {
-        alert("Invalid email or password");
+        alert("this id alredy register!!!");
+        rinputOne.value = '';
+        rinputTwo.value = '';
     }
 });
 // check user is vaild or not and login
@@ -46,7 +55,9 @@ loginBtn.addEventListener("click", (e) => {
     let userPass = inputTwo.value;
     const regUserData = JSON.parse(localStorage.getItem("user") || "[]");
     console.log(regUserData);
-    let findUser = regUserData.filter((ele) => (userEmail.toLowerCase() === ele.userName.toLowerCase() || ele.userName.split('@')[0].toLowerCase() == userEmail.toLowerCase()) && userPass === ele.userPass);
+    let findUser = regUserData.filter((ele) => (userEmail.toLowerCase() === ele.userName.toLowerCase() ||
+        ele.userName.split("@")[0].toLowerCase() == userEmail.toLowerCase()) &&
+        userPass === ele.userPass);
     if (findUser.length > 0 && userPass.length > 7) {
         sessionStorage.setItem("loginUser", JSON.stringify(userEmail.split("@")[0]));
         alert("Login successful");
@@ -56,6 +67,6 @@ loginBtn.addEventListener("click", (e) => {
         alert("Invalid email or password");
     }
 });
-document.querySelector('a')?.addEventListener("click", (e) => {
+document.querySelector("a")?.addEventListener("click", (e) => {
     sessionStorage.setItem("forgotPass", inputOne.value);
 });

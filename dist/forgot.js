@@ -8,7 +8,9 @@ const changePassBtn = document.querySelector("#changeBtn");
 const userEmail = sessionStorage.getItem("forgotPass") || "[]";
 let userIndex;
 //user Email
-loginUser.value = userEmail;
+if (userEmail != '[]') {
+    loginUser.value = userEmail;
+}
 document.querySelector("#verify")?.addEventListener("click", (e) => {
     e.preventDefault();
     //check given email is right or worng
@@ -18,19 +20,19 @@ document.querySelector("#verify")?.addEventListener("click", (e) => {
         changeUser.value = loginUser.value;
     }
     else {
-        alert("email is not");
+        alert("email is not found!!!");
     }
 });
 //change user password
 changePassBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    if (changePass.value != undefined) {
+    if (changePass.value != undefined && changePass.value.length > 7) {
         userData[userIndex].userPass = changePass.value;
         localStorage.setItem("user", JSON.stringify(userData));
         sessionStorage.removeItem("forgotPass");
         location.href = "../index.html";
     }
     else {
-        alert("please enter your new password!!!");
+        alert("please enter your new password or passwrod lenth must be minimum 8!!!");
     }
 });
