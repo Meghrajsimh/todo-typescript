@@ -46,7 +46,7 @@ loginBtn.addEventListener("click", (e) => {
     let userPass = inputTwo.value;
     const regUserData = JSON.parse(localStorage.getItem("user") || "[]");
     console.log(regUserData);
-    let findUser = regUserData.filter((ele) => (userEmail === ele.userName || ele.userName.split('@')[0] == userEmail) && userPass === ele.userPass);
+    let findUser = regUserData.filter((ele) => (userEmail.toLowerCase() === ele.userName.toLowerCase() || ele.userName.split('@')[0].toLowerCase() == userEmail.toLowerCase()) && userPass === ele.userPass);
     if (findUser.length > 0 && userPass.length > 7) {
         sessionStorage.setItem("loginUser", JSON.stringify(userEmail.split("@")[0]));
         alert("Login successful");
