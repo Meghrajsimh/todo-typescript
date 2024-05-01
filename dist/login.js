@@ -43,7 +43,7 @@ registeBtn.addEventListener("click", (e) => {
         }
     }
     else {
-        alert("this id alredy register!!!");
+        alert("user already exists!!!");
         rinputOne.value = '';
         rinputTwo.value = '';
     }
