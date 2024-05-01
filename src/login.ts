@@ -58,7 +58,7 @@ loginBtn.addEventListener("click", (e): void => {
   console.log(regUserData);
   let findUser: User[] = regUserData.filter(
     (ele) =>
-      (userEmail === ele.userName || ele.userName.split('@')[0] == userEmail) && userPass === ele.userPass
+      (userEmail.toLowerCase() === ele.userName.toLowerCase() || ele.userName.split('@')[0].toLowerCase() == userEmail.toLowerCase()) && userPass === ele.userPass
   );
 
   if (findUser.length > 0 && userPass.length > 7) {
