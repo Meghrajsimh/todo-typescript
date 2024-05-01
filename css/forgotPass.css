@@ -1,0 +1,37 @@
+body {
+    background-color: rgba(121, 118, 118, 0.397);
+}
+.passwordReset{
+    width: 300px;
+    height: 115px;
+    margin: 0 auto;
+    margin-top: 250px;
+    background-color: rgb(212, 255, 127);
+    border-radius: 10px;
+}
+
+form {
+ width: 250px;
+ margin: 0 auto;
+ position: relative;
+ top: 15px;
+ text-align: center;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+.changePassword{
+    display: none;
+    width: 300px;
+    height: 155px;
+    margin: 0 auto;
+    background-color: rgb(212, 255, 127);
+    border-radius: 10px;
+    position: absolute;
+    top: 210px;
+}
+.block{
+    display: block;
+}
